@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using ExtractQnA.Utils;
 
 namespace ExtractQnA.Controllers
 {
@@ -23,15 +25,19 @@ namespace ExtractQnA.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetGPTSummery")]
-        public IEnumerable<ConversationSummary> Get()
+        [HttpGet(Name = "GetGPTSummary")]
+        public async Task<IEnumerable<ConversationSummary>> Get()
         {
+
+            Channel channel = Utils.Utils.ReadChannel("DRI Channel.json");
+
             return Enumerable.Range(0, 4).Select(index => new ConversationSummary
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 Question = Questions[index],
                 ConversationId = index,
-                Summary = "Answer is: " + Summaries[Random.Shared.Next(Summaries.Length)]
+                //Summary = "Answer is: " + Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = "Answer is: " + channel.channelName + " " + channel.channelContext + " " + channel.channelWikiTopics[0] + " " + channel.channelThreads[0].threadMessage + " " + channel.channelThreads[0].threadReplies[0]
             })
             .ToArray();
         }
