@@ -17,6 +17,7 @@ namespace ExtractQnA.Utils
 
     public class Channel
     {
+        public int channelId { get; set; }
         public string channelName { get; set; }
         public string channelContext { get; set; }
         public List<string> channelWikiTopics { get; set; }

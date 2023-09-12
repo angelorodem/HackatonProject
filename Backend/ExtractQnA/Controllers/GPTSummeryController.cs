@@ -6,7 +6,7 @@ namespace ExtractQnA.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ConversationSummeryController : ControllerBase
+    public class ConversationSummaryController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -18,9 +18,9 @@ namespace ExtractQnA.Controllers
         "how to test midgard", "how to run BCE", "where is the SNR code", "what Azure subscription to use", "who is repo owner"
     };
 
-        private readonly ILogger<ConversationSummeryController> _logger;
+        private readonly ILogger<ConversationSummaryController> _logger;
 
-        public ConversationSummeryController(ILogger<ConversationSummeryController> logger)
+        public ConversationSummaryController(ILogger<ConversationSummaryController> logger)
         {
             _logger = logger;
         }
@@ -36,7 +36,7 @@ namespace ExtractQnA.Controllers
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 Question = Questions[index],
                 ConversationId = index,
-                //Summary = "Answer is: " + Summaries[Random.Shared.Next(Summaries.Length)]
+                ChannelId = channel.channelId,
                 Summary = "Answer is: " + channel.channelName + " " + channel.channelContext + " " + channel.channelWikiTopics[0] + " " + channel.channelThreads[0].threadMessage + " " + channel.channelThreads[0].threadReplies[0]
             })
             .ToArray();
