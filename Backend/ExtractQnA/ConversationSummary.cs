@@ -8,6 +8,8 @@ namespace ExtractQnA
 
         public int ConversationId { get; set; }
 
+        public int ChannelId { get; set; }
+
         public string? Summary { get; set; }
     }
 }
