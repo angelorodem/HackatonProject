@@ -4,6 +4,7 @@ using ExtractQnA.Utils;
 using System.Text.Json;
 using System.Text;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using ExtractQnA.Clients;
 
 namespace ExtractQnA.Controllers
 {
@@ -77,6 +78,17 @@ namespace ExtractQnA.Controllers
                 }
             }
             return answer;
+        }
+
+        [HttpPost]
+        [Route("postOpenAIAsync")]
+        public async Task PostAsync()
+        {
+            OpenAIClient openAIClient = new OpenAIClient();
+            string connectionString = "";
+            AzureBlobClient azureBlobClient = new AzureBlobClient(connectionString);
+            ChannelIngestionTask task = new ChannelIngestionTask(openAIClient, azureBlobClient);
+            await task.RunImplAsync();
         }
     }
 }
