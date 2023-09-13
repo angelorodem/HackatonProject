@@ -15,12 +15,17 @@ namespace ExtractQnA.Controllers
         private static readonly string[] Summaries = new[]
         {
         "test", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        };
 
         private static readonly string[] Questions = new[]
-    {
-        "how to test midgard", "how to run BCE", "where is the SNR code", "what Azure subscription to use", "who is repo owner"
-    };
+        {
+            "how to test midgard", "how to run BCE", "where is the SNR code", "what Azure subscription to use", "who is repo owner"
+        };
+
+        private static HashSet<string> ValidChannels = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "dri_channel", "engineering_channel", "mathematics_channel"
+        };
 
         private readonly ILogger<ConversationSummaryController> _logger;
 
@@ -30,11 +35,16 @@ namespace ExtractQnA.Controllers
         }
 
         [HttpGet(Name = "GetGPTSummary")]
-        public async Task<IEnumerable<ConversationSummary>> Get()
+        public async Task<IActionResult> Get([FromQuery(Name = "channelName")] string channelName = "dri_channel")
         {
+            if (!ValidChannels.Contains(channelName))
+            {
+                return this.BadRequest();
+            }
+            
             const string output_tag = "<<OUTPUT>>";
             const string input_tag = "<<INPUT>>";
-            Channel channel = Utils.Utils.ReadChannel("DRI Channel.json");
+            Channel channel = Utils.Utils.ReadChannel($"{channelName}.json");
             string gptContext = 
 @"You will receive a chat thread from a customer, you have to find if this conversation has any useful information that can be used or that is important to the customer employees, 
 The final goal is to build a question-and-answer wiki from this information so other people can refer to, the customer gave the following context to help you build the wiki: " + channel.channelContext + @"
@@ -80,7 +90,7 @@ use this format:
             }
 
 
-            return Enumerable.Range(0, answers.Count).Select(index => new ConversationSummary
+            return this.Ok(Enumerable.Range(0, answers.Count).Select(index => new ConversationSummary
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 Question = answers[index].wikiQuestion,
@@ -89,7 +99,7 @@ use this format:
                 Summary = String.Join("\n", answers[index].wikiAnswers),
                 Category = answers[index].wikiCategory
             })
-            .ToArray();
+            .ToArray());
         }
 
         /*
