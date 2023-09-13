@@ -1,0 +1,177 @@
+{
+
+   "channelName": "Engineering Channel",
+   "channelContext": "This channel is used for engineering general questions",
+   "channelWikiTopics": ["General", "Mitigation", "Graph Analysis", "Communications"],
+   "channelThreads": [
+       {
+        "threadMessage":"I use the Postman desktop app for web API testing. I have a lot of controllers and for each need a token. First I get Bearer token and then copy it to other requests. This token have limit time. Can I get token automatically and then automatically set it to all others requests?",
+        "threadReplies": [
+            "Write below code in tests tab in postman for your login request. Then edit your collection and set your env authToken inside.",
+            "You can save and re-use the token's using the Token Name from Postman. You can select it from the available token list. One of the many cases are. Request for a refresh token using the credentials. Use the refresh token to get an access token. Use the access token to authenticate the API. The step 1 sometimes requires us to login to an interface of the API provider and get an authentication code to our callback url. Some API provider's allow us to override this by providing the client_secret key and the client_id as an authorization header and the refresh token as the request parameters and by setting prompt as none. From the documentation. prompt (optional) none no UI will be shown during the request. If this is not possible (e.g. because the user has to sign in or consent) an error is returned. ttps://identityserver.github.io/Documentation/docsv2/endpoints/authorization.html All you need to know about the identity servers are here.  https://identityserver.github.io/Documentation"
+        ]
+        },
+        {
+        "threadMessage":"I have a web server written in Node.js and I would like to launch with a specific folder. I'm not sure how to access arguments in JavaScript. I'm running node like this: $ node server.js folder  here server.js is my server code. Node.js help says this is possible:         $ node -h  Usage: node [options] script.js [arguments] How would I access those arguments in JavaScript? Somehow I was not able to find this information on the web.",
+        "threadReplies": [
+            "It's probably a good idea to manage your configuration in a centralized manner using something like nconf github.com/flatiron/nconf It helps you work with configuration files, environment variables, command-line arguments",
+            "And here's configvention, my own, minimal, readonly interface for nconf"
+        ]
+        },
+        {
+            "threadMessage":"So, which HTTP method should be used to create a resource? Or should both be supported?",
+            "threadReplies": [
+                "It may be helpful to use the definitions in HTTPbis - Roy put a fair amount of work into clarifying them. See: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-p2-semantics-16#section-7.5",
+                "Just to bring @MarkNottingham's comment to the latest revision, here's POST and PUT, as defined on HTTPbis",
+                "It seems to me that this debate has arisen from the common practice of oversimplifying REST by describing the HTTP Methods in terms of CRUD operations.",
+                "Unfortunally the first answers are wrong about POST. Check my answer for a better explanation of the differences: stackoverflow.com/a/18243587/2458234",
+                "PUT and POST are both unsafe methods. However, PUT is idempotent, while POST is not. - See more at: https://restcookbook.com/HTTP%20Methods/put-vs-post/#sthash.u3S9tnPo.dpuf"
+            ]
+        },
+        {
+            "threadMessage":"How do I connect to a MySQL database using a python program?",
+            "threadReplies": [
+                "1- Setting You must install a MySQL driver before doing anything. Unlike PHP, Only the SQLite driver is installed by default with Python. The most used package to do so is MySQLdb but it's hard to install it using easy_install. Please note MySQLdb only supports Python 2. Usage After installing, Reboot. This is not mandatory, But it will prevent me from answering 3 or 4 other questions in this post if something goes wrong. So please reboot. Of course, there are thousand of possibilities and options; this is a very basic example. You will have to look at the documentation. A good starting point. 3 - More advanced usage Once you know how it works, You may want to use an ORM to avoid writing SQL manually and manipulate your tables as they were Python objects. The most famous ORM in the Python community is SQLAlchemy.              I strongly advise you to use it: your life is going to be much easier. I recently discovered another jewel in the Python world: peewee. It's a very lite ORM, really easy and fast to setup then use. It makes my day for small projects or stand alone apps, Where using big tools like SQLAlchemy or Django is overkill",
+                "Glad you like peewee!! I've added support for MySQL as well as some documentation on integrating with it. Happy hacking!",
+                "Note, as of writing this, MySQLdb does not support Python 3. The sourceforge page says \"Python 3 support coming soon\" but it has not been updated since 2012-10-08. For Python 3 there's PyMySQL and oursql."
+            ]
+        },
+        {
+            "threadMessage":"What is a fast and simple way to validate HTML from Java? I’m looking for an open-source/PD class (or set of classes) that describes the various properties of the 100-odd HTML tags, such as:             Is the tag optional? Empty? Is it legal to omit its closing tag? Which other tags can this tag contain (if any)? Which attributes are legal for this tag, and what are their types? (not required, but nice to have)  I'm looking to do to a tag-by-tag analysis of an HTML document, so I'm less interested in whether the document as a whole is valid, but rather what the specific requirements are for each type of tag.             I could encode the rules based on the W3C spec, but wanted to see which ready-made solutions are available first.",
+            "threadReplies": [
+                "If you want to verify certain tags follow certain specifications, there seems to be no end of Java based HTML parsers: Open Source HTML Parsers in Java In other words, you could parse you HTML, and then inspect the resulting document for the tags you were looking for and determine if they meet the specifications you require. If they don't you could then just throw an error. I don't think you'll find a HTML analysis tool which was written with exactly your requirements in mind, mostly because those requirements haven't been voiced and are probably a bit nebulous. If the parser doesn't do what you want out of the box, at least this list is open source, so you can hack the parser as long as you publish your changes.",
+                "Check JTidy (http://jtidy.sourceforge.net/) and VietSpider HTMLParser ( http://sourceforge.net/projects/binhgiang/ ) both are Java HTML parser and some syntax checking capabilities. Some eclipse based HTML editor plugin use JTidy (or port of Tidy) for syntax checking. Or as David Said, submit the page to w3c.org"
+            ]
+        },
+        {
+            "threadMessage":"I have an EditText and a Button in my layout. After writing in the edit field and clicking on the Button, I want to hide the virtual keyboard when touching outside the keyboard. I assume that this is a simple piece of code, but where can I find an example of it?",
+            "threadReplies": [
+                "What if you have only one EditText and several buttons, like check boxes and radios? The only place you need the keyboard is in the single EditText. How do you register to know that something else was chosen/clicked in order to hide the keyboard? ",
+                "i feel stupid. I am unable to hide the keyboard on ICS. Tried all methods here and combinations of them. No way. The method to show it works, but I cant hide it no matter what windw token, hide flags, manifest settings or candles to any saints. On keyboard show I always see this: I/LatinIME( 396): InputType.TYPE_NULL is specified W/LatinIME( 396): Unexpected input class: inputType=0x00000000 imeOptions=0x00000000",
+                "Need to play with InputMethodManager with the INPUT_METHOD_SERVICE to handle soft keyboard like readyandroid.wordpress.com/show-hide-android-soft-keyboard",
+                "https://stackoverflow.com/questions/16184703/unable-to-hide-the-virtual-keyboard-of-searchview-iconfiedbydefaultfalse?answertab=votes#tab-top worked for me"
+            ]
+        },
+        {
+            "threadMessage":"I use the Postman desktop app for web API testing. I have a lot of controllers and for each need a token. First I get Bearer token and then copy it to other requests. This token have limit time. Can I get token automatically and then automatically set it to all others requests ?",
+            "threadReplies": [
+                "ok, I just used Environments in postman. 1 - create new Environment with token. 2 - add test after auth request  3 - just set {{token}} And of course you can set token before request if you use Pre-request Script in one of requests.",
+                "You can save and re-use the token's using the Token Name from Postman. You can select it from the available token list.                One of the many cases are. Request for a refresh token using the credentials.  Use the refresh token to get an access token                Use the access token to authenticate the API.",
+                "https://liftcodeplay.com/2018/03/18/how-to-automatically-set-a-bearer-token-for-your-postman-requests/"
+            ]
+        },
+        {
+            "threadMessage":"I have a number of places in which I wish to use std::enable_if to allow certain templates only if a simple static cast from template type A to template type B (both of which are numeric) will not result in any loss of data. However I am not sure what existing type traits, if any, I should use or if I should write my own.           For example, casting from uint16_t to uint32_t, from float to double, even from int to double is not going to lose any precision or negative sign. But casting from double to int or int to uint32_t would obviously be problematic. I've monkeyed around a bit, testing std::is_trivially_constructible, std::is_assignable, std::is_constructible, etc etc. but I don't see one that will warn me if I try to go from float to int. Am I missing something that's in the library currently or should I just write it myself?",
+            "threadReplies": [
+                "could just treat warning as errors",
+                "Maybe checking list-initialization would be sufficient. It already prevents narrowing conversions. I do not know of any trait that checks for it, though. It should be easy to write that yourself.",
+                "Thanks, I'm not trying to make it an error, just trying to handle things differently when the conversion is narrowing vs not narrowing. I'm supporting something that must build on several versions of Visual C++, all the way down to VS 2012, so my options are limited. Fortunately I've already got a trait written, I just wanted to make sure I wasn't missing something already in the library. ",
+                "@TemplateRex Sure, but that is (as far as I understand it) not required for the OP either -- once you pass the constant expression as an argument into a function, the compile-time knowledge is gone. That is, any such trait can only select functions at compile time, such that they guarantee that no values in the source range are narrowed. "
+            ]
+        },
+        {
+            "threadMessage":"I am trying to upload second version of my app, but getting this message  Asset validation failed This bundle is invalid. The value for key CFBundleShortVersionString [0.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [0.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring (ID: 4703c705-ac34-4ae5-88b7-aac279628304) Event though I changed version number in xCode. Could someone please tell me where else should I change the version? Thank you!",
+            "threadReplies": [
+                "Check under \"Build Settings\" -> \"Versioning\" -> \"Marketing Version\". Also known as the \"short\" version.                HTH",
+                ""
+            ]
+        },
+        {
+            "threadMessage":"how to solve this problem please             This bundle is invalid. The value for key CFBundleShortVersionString [2.0.0] in the Info.plist file must contain a higher version than that of the previously approved version [2.0]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring",
+            "threadReplies": [
+                "As the message says, the version number needs to be higher. 2.0.1 would be acceptable as would 2.1. 2.0.0 is the same as 2.0 ",
+                "thx the problem is solved and uploaded my app",
+                "Just go to project settings and upgrade the version of your choice then you will be able to update app it is happening coz you are using app with same version no. to update."
+            ]
+        },
+        {
+            "threadMessage":"In MUI for each component there is a section with CSS class list that one can override, I can't find the same for Ant Design, people seem to search in Dev tools inspector but is that the only approach here?",
+            "threadReplies": [
+                "In newest antd versions if you want to overwrite styles by using antd default css classes so yes, you'll need to search for desired class in dev tools, this works but it's not the best sollution. You can change component styles in many different ways:  You can change token config:"
+            ]
+        },
+        {
+            "threadMessage":"What is the difference between Abstract class and Interface in C++, Explain both with Examples. I wants to know the difference between them, their importance and uses in C++, Explain in detail with examples. Also how it is used in java",
+            "threadReplies": [
+                "https://stackoverflow.com/questions/1913098/what-is-the-difference-between-an-interface-and-abstract-class?rq=2",
+                "Officially interfaces don't exist in C++. You have abstract baseclasses, classes with virtual methods. The closest thing to an interface is an abstract base class with only pure virtual functions (an in practice I do call those interfaces)."
+            ]
+        },
+        {
+            "threadMessage":"I have a webview. Everything is working fine but when I am opening a page which has iframe, the iframe is not getting visible. Are there any specific settings required?",
+            "threadReplies": [
+                "I have a webview. Everything is working fine but when I am opening a page which has iframe, the iframe is not getting visible. Are there any specific settings required?",
+                "No.. Is it required?",
+                "Increased resources required to enable hardware acceleration, so try adding it to activity label or application label in manifest.",
+                "Why is iframe dependant on hardware accelaration"
+            ]
+        },
+        {
+            "threadMessage":"A friend and I had an argument last week. He stated there were no such things as classes in JavaScript.            I said there was as you can say var object = new Object() He says \"as there is no word class used. It's not a class.\"  Who is right?",
+            "threadReplies": [
+                "in the example above it's talking about class Rectangle, so to define a class we don't need to use function keyword anymore i.e (function Rectangle(dimensions) { } ? Now there is a class keyword for classes?",
+                "I found this reddit thread that gives a lot of people's perspectives on this topic. The majority seem to be saying that es6 classes count as real classes, but of course there's some conflicting opinions. Anyone who wants to dive a little deeper into this question and develop their own opinion can take a peek: https://www.reddit.com/r/javascript/comments/8q6267/why_are_js_classes_not_real_classes/",
+                "Technically, the statement \"JavaScript has no classes\" is correct. Although JavaScript is object-oriented language, it isn't a class-based language—it's a prototype-based language. There are differences between these two approaches, but since it is possible to use JavaScript like a class-based language, many people (including myself) often simply refer to the constructor functions as \"classes\"."
+            ]
+        },
+        {
+            "threadMessage":"I've seen a few different ways to iterate over a dictionary in C#. Is there a standard way?",
+            "threadReplies": [
+                "@MateenUlhaq I think that you've shortened the question too much. Now (5th revision) it's almost a paraphrasing of the title, without any additional context. I am voting to revert to the previous version.",
+                "@TheodorZoulias The context is probably not needed for the question to function since \"What is the best way / standard\" questions are usually considered off-topic, but I've reverted it."
+            ]
+        },
+        {
+            "threadMessage":"All 4 my android emulators not start from Android Studio with message: The emulator process for AVD *** selected device *** has terminated. The output is not very informative. How to reasons why my android emulators not start. Is there any more informative log files that is created by emulator?            One emulator was not starting from IDE bu I got it run from command line. But after not nice terminations (CTRL+Z) it does not start anymore. How to know reason why my Android emulators not start ",
+            "threadReplies": [
+                "I had same error. You should check update your IDE and reinstall emulators. Also if you dont have storage space. It throws same error.",
+                "Check SDK versions, you can wipe and reinstall devices"
+            ]
+        },
+        {
+            "threadMessage":"I have a Django app that contains multiple models with FileField. I am saving by default every file directly in the Media folder. But as the app grew larger also Media folder became bigger. Now my idea is to move the files into separate folders split by models. So I am wondering what is the best practice when it comes to this? Shall I move the files to separate folders, then manually update every file location in the Database and then update Filefield path for every model? Or is there better approach?",
+            "threadReplies": [
+                "Instead of manually updating the locations, I'd write a data migration to do it. The same migration could also move the physical files if you feel like it. ",
+                "AKX could you please give some example of a migration how I could do this if I want to move all files in given model from media to media/modelname folder?",
+                "(1) Make a dict of source -> dest paths: ps = {f.name: f\"model/{f.name}\" for f in MyModel.objects.values_list(\"file\", flat=True} (2) Loop over the dict, call os.rename() (assuming you're using filesystem storage) (3) Update the model values (untested, but should work): MyModel.objects.update(file=\"model/\" + F(\"file\"))."
+            ]
+        },
+        {
+            "threadMessage":"I'm very interested in doing a \"Traceable Sankey Diagram\" using AmCharts exactly like the one that can be experienced here: https://www.amcharts.com/demos/traceable-sankey-diagram/ When you move the mouse over a link (for instance C-F) you can see other links highlighted (i.e. F-I + I-Q). That's a GREAT feature but I'd like it to be slightly different. I would like that all \"compatible\" links to be highlighted (F-I but also F-M. Then I-Q, I-R, I-S, I-T and M-U) because all those can be following C-F. Is it feasible ? I couldn't find any option in Amchart's doc for that. Thanks,",
+            "threadReplies": [
+                "No-one ? Maybe another js library that could do that ?",
+                "What is required is a new algorithm to select items that are to be highlighted on link hover.                To select all compatible targets and their targets, ... and so on, one may:              start the array itemsToHighlight with the item under the pointer, and store in an array allTargetIds initially the target id of that item  for all links of the series add to the itemsToHighlight all those items whose source id is equal to one of the target ids in the allTargetIds array.                 repeat step 2. until there is no new item added to itemsToHighlight. Now, if one also wants to also highlight compatible items to the left, that is all possible sources and all their possible sources, ... and so on, the algorithm is the same, but invert source and target positions."
+            ]
+        },
+        {
+            "threadMessage":"https://github.com/servo/servo I tried to setup this open-source pure browser on my local and according to their read me mach bootstrap would help me to install CMake, Git, Ninja, Python and the Visual Studio 2019 Build Tools via choco in an Administrator console. It can take quite a while. But when I tried mach bootstrap, it shows nothing.",
+            "threadReplies": [
+                "Did you follow the preceding steps: installing Rust and Chocolatey? Looking at what mach does, it looks like you'd need Python as well.",
+                "yes, i did. so installed rust and chocolately correctly."
+            ]
+        },
+        {
+            "threadMessage":"I need to your help. When I am using python to Splunk Connection, I saw this error. I'm using python 2.7 SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:618) So, I saw that reference pages like this https://docs.splunk.com/DocumentationStatic/PythonSDK/1.6.5/client.html#splunklib.client.Indexes  But I still can't resolve the above error. When verifying connection, it returns False. Do I need to add more into the settings? Thank you.",
+            "threadReplies": [
+                "Self-signed certificates or a certificate signed by an untrusted CA are both common reasons for verification failures, but not the only reasons. Expired certificates or using an IP address in your application when the certificate does not contain a Subject Alternative Name (SAN) IP entry to secure traffic to the IP address are also common issues. One way to handle any failure is in the code using verify=False as in your example, although this is not really recommended as you're essentially disabling certificate verification which can be risky from a security standpoint. This is not suggested in production environments. However, it might be necessary in certain situations such as an expired certificate which you have no control over to replace it. If it's a self-signed certificate or untrusted CA another way to handle this may be importing the self-signed certificate or the untrusted CA into your trusted certificate store, or Splunk's certificate store if it uses its own. Adding a certificate to your systems certificate store is different for each OS or even between distro's of Linux. You can use your browser to examine SSL certificate and see if you get the same verification failure or not. Otherwise this page, from freecodecamp, goes into some detail about using the openssl utility to examine certificates, identify the signer (CA or self signed) or download the certificate so you could import it into a store. Separately this discussion at splunk.com has a very similar question and a solution that suggests using openssl_capath_env / SSL_CERT_DIR to resolve the verification failure when the certificate is not trusted."
+            ]
+        },
+        {
+            "threadMessage":"I have a helm chart and values file. part of helm chart:  - name: RAM value: \"{{ .Values.resources.requests.memory | trimSuffix \"Mi\" }}\" here, how can i make it such that if I have values in Mi or Gi, both should get stripped. Also, if its Gi, appropriately convert that Gi(meaning GB's) .. multiply the value by 1000.",
+            "threadReplies": [
+                "Helm doesn't have any built-in support for parsing Kubernetes resource units. You can look for a Mi string suffix, but in the general case this is a tricky problem to solve in Helm. Can the program figure out its own memory limits, maybe by looking at the Linux cgroups subsystem, without an explicit environment-variable setting?",
+                "So, alternative is to use %cpu. i think, that is easier than this? what do you say @DavidMaze"
+            ]
+        },
+        {
+            "threadMessage":"I'm following the instructions of the lsp-embedded-language-service example that are written here: https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-embedded-language-service. The instructions are: Running the Sample            Run npm install in this folder. This installs all necessary npm modules in both the client and server folder            Open VS Code on this folder.            Press Ctrl+Shift+B to compile the client and server.            Switch to the Debug viewlet.            Select Launch Client from the drop down.            Run the launch config.            If you want to debug the server as well use the launch configuration Attach to Server            In the [Extension Development Host] instance of VSCode, open a HTML document            Type <d| to try HTML completion            Type <style>.foo { c| }</style> to try CSS completion            Have <style>.foo { }</style> to see CSS Diagnostics            if I type <d| nothing happens. How should I debug this?",
+            "threadReplies": [
+                "@rioV8 I see you removed the vscode-extensions tag, but the way I interpret the description, it should be added, I actually want to develop. Correct me if I'm wrong. \"Use this tag for questions about the Visual Studio Code Extension API and extension development. Questions only about extension usage should use the [visual-studio-code] tag instead\"",
+                "here inside of the documentation they use <| for html completion maybe there is a typo inside of the github instruction ",
+                "did you actually type \"<d|\" with the \"|\"? I'm pretty sure the \"|\" is just an indicator of where the cursor/caret is after typing \"<d\". Also, have you touched the editor.quickSuggestions setting at all anywhere?",
+                "@Shad0w I tried < and <| and <d and <d|. Nothing worked. ",
+                "@starball Yeah, I agree that the | is probably the caret. I didn't touch any code. If I open a regular .html file, I will have code completion"
+            ]
+        }
+   ]
+}
