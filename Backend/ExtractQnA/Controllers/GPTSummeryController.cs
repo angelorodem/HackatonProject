@@ -133,7 +133,7 @@ use this format:
 
         private async Task<string> getGptAnswerFor(string input_prompt)
         {
-            string testKey = "e087809f4e914f9d89aa39bbddce27a0";
+            string testKey = "";
             string url = "https://fcedgeopenai.openai.azure.com/openai/deployments/fcedgefhlrachak/completions?api-version=2022-12-01";
 
             
