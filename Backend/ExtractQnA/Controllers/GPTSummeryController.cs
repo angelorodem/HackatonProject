@@ -49,7 +49,7 @@ use this format:
 {
   ""wikiQuestion"":""(simplified formal question)"",
   ""wikiAnswers"":[""(best answers in proper english)""],
-  ""wikiCategory"":""(category)""
+  ""wikiCategory"":""(category from the list)""
 }" + output_tag + "\n important, don't forget "+output_tag+" and only useful answers to the thread should be added, return as less replies as possible, if you find nothing of importance return just " + output_tag + ".\n\n";
 
 
