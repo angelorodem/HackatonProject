@@ -11,5 +11,6 @@ namespace ExtractQnA
         public int ChannelId { get; set; }
 
         public string? Summary { get; set; }
+        public string? Category { get; set; }
     }
 }

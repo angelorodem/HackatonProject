@@ -34,20 +34,24 @@ namespace ExtractQnA.Controllers
         {
             const string output_tag = "<<OUTPUT>>";
             const string input_tag = "<<INPUT>>";
+            Channel channel = Utils.Utils.ReadChannel("DRI Channel.json");
             string gptContext = 
 @"You will receive a chat thread from a customer, you have to find if this conversation has any useful information that can be used or that is important to the customer employees, 
-The final goal is to build a question-and-answer wiki from this information so other people can refer to. input format:
+The final goal is to build a question-and-answer wiki from this information so other people can refer to, the customer gave the following context to help you build the wiki: " + channel.channelContext + @"
+input format for wiki threads:
 {
   ""threadMessage"": ""(main message)"",
   ""threadReplies"": [""(list of replies)"",]
-}
-The output should be a simplified and formal version of the question and only useful answers using proper english. use the format:
+}" + input_tag + @"
+The output should be a simplified and formal version of the question and only useful answers using proper english, you also need to categorize based on the available categories:
+["+String.Join(", ",channel.channelWikiTopics)+@"]
+use this format:
 {
   ""wikiQuestion"":""(simplified formal question)"",
-  ""wikiAnswers"":[""(best answers in proper english)""]
-}" + output_tag + "\n important, only useful answers to the thread should be added, return as less replies as possible, if you find nothing of importance return just " + output_tag + ".\n\n";
+  ""wikiAnswers"":[""(best answers in proper english)""],
+  ""wikiCategory"":""(category)""
+}" + output_tag + "\n important, don't forget "+output_tag+" and only useful answers to the thread should be added, return as less replies as possible, if you find nothing of importance return just " + output_tag + ".\n\n";
 
-            Channel channel = Utils.Utils.ReadChannel("DRI Channel.json");
 
             //Todo: use the channel context and name to generate promp (if gpt4)
 
@@ -82,7 +86,8 @@ The output should be a simplified and formal version of the question and only us
                 Question = answers[index].wikiQuestion,
                 ConversationId = index,
                 ChannelId = channel.channelId,
-                Summary = String.Join("\n", answers[index].wikiAnswers)
+                Summary = String.Join("\n", answers[index].wikiAnswers),
+                Category = answers[index].wikiCategory
             })
             .ToArray();
         }
@@ -122,6 +127,7 @@ The output should be a simplified and formal version of the question and only us
         {
             public string wikiQuestion { get; set; }
             public List<string> wikiAnswers { get; set; }
+            public string wikiCategory { get; set; }
         }
 
 
