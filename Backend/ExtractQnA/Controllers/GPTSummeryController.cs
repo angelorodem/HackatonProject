@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using ExtractQnA.Clients;
+using System.Threading;
 
 namespace ExtractQnA.Controllers
 {
@@ -90,6 +91,7 @@ return using this format:
 
             //Todo: exception handling for json parsing
             List<WikiResponse> answers = new List<WikiResponse>();
+            List<(Task<List<string>>, string)> responses = new List<(Task<List<string>>, string)>(); // (response, threadMessage)
             foreach (var thread in channel.channelThreads)
 
             {
@@ -102,18 +104,30 @@ return using this format:
 
                 string prompt = gptContext + $"{{\"{thread.threadMessage}\"}}[{threadReplies}]" + input_tag;
 
-                List<string> responses = (await getGptAnswerFor(prompt, 2));
-                // apply .Split(output_tag)[0].Trim() to all items
-                responses = responses.Select(x => x.Split(output_tag)[0].Trim()).ToList();
+                // non blocking request
+                responses.Add((getGptAnswerFor(prompt, 2), thread.threadMessage));                
+            }
 
-                string best = await this.FilterResults(responses, thread.threadMessage);
+
+            List<Task<string>> filtering_results = new List<Task<string>>();
+            foreach (var response in responses)
+            {
+                // await in sequence (they will finish almost in same time)
+                List<string> gptresponses = (await response.Item1).Select(x => x.Split(output_tag)[0].Trim()).ToList();
+                filtering_results.Add(FilterResults(gptresponses, response.Item2));                
+            } 
+            
+            foreach (var result in filtering_results)
+            {
+                // await in sequence (they will finish almost in same time)
+                string best = await result;
 
                 if (best == String.Empty) { continue; }
-                
-                List<string> strings = best.Split("|").ToList();  
+
+                List<string> strings = best.Split("|").ToList();
 
                 strings.RemoveAll(x => x == "");
-        
+
                 WikiResponse wikiResponse = new WikiResponse();
 
                 wikiResponse.wikiQuestion = strings[0].Trim().Replace("\"", String.Empty);
@@ -181,7 +195,7 @@ return using this format:
 
         private async Task<List<string>> getGptAnswerFor(string input_prompt, int results = 1)
         {
-            string testKey = "e087809f4e914f9d89aa39bbddce27a0";
+            string testKey = "";
             string url = "https://fcedgeopenai.openai.azure.com/openai/deployments/fcedgefhlrachak/completions?api-version=2022-12-01";
 
             
