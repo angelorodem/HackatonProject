@@ -41,7 +41,7 @@ let testData = [
     let result = testData.filter((data) => {
       return data.question.toLowerCase().indexOf(text.toLowerCase()) !== -1;
     });
-    return result;
+    return result
   }
 
     function highlightText(text, searchText) {
@@ -51,10 +51,12 @@ let testData = [
 
     function searchAndHighlight(searchText) {
       let result = searchByQuestion(searchText);
-      result.forEach((data) => {
-        data.question = highlightText(data.question, searchText);
+      const highlighted = result.map((data) => {
+        let copy = Object.assign({}, data);
+        copy.question = highlightText(copy.question, searchText);
+        return copy
       });
-      return result;
+      return highlighted;
     }
 
     function displayResult() {
