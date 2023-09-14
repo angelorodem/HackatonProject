@@ -15,12 +15,17 @@ namespace ExtractQnA.Controllers
         private static readonly string[] Summaries = new[]
         {
         "test", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        };
 
         private static readonly string[] Questions = new[]
-    {
-        "how to test midgard", "how to run BCE", "where is the SNR code", "what Azure subscription to use", "who is repo owner"
-    };
+        {
+            "how to test midgard", "how to run BCE", "where is the SNR code", "what Azure subscription to use", "who is repo owner"
+        };
+
+        private static HashSet<string> ValidChannels = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "dri_channel", "engineering_channel", "mathematics_channel"
+        };
 
         private readonly ILogger<ConversationSummaryController> _logger;
 
@@ -56,11 +61,17 @@ namespace ExtractQnA.Controllers
         }
 
         [HttpGet(Name = "GetGPTSummary")]
-        public async Task<IEnumerable<ConversationSummary>> Get()
+        public async Task<IActionResult> Get([FromQuery(Name = "channelName")] string channelName = "dri_channel")
         {
+            if (!ValidChannels.Contains(channelName))
+            {
+                return this.BadRequest();
+            }
+            
             const string output_tag = "<<OUTPUT>>";
             const string input_tag = "<<INPUT>>";
-            Channel channel = Utils.Utils.ReadChannel("DRI Channel.json");
+
+            Channel channel = Utils.Utils.ReadChannel($"{channelName}.json");
             string gptContext =
 @"You will receive a chat thread, it contains a main message from the person who created the thread and replies to this thread, you have to find if this conversation has any useful information that can be used or that is important to other people, 
 The final goal is to find only useful information that can be used to build a question-and-answer wiki from this chat thread, to aid in interpreting the importance of messages, the customer gave the context for this chat thread: [" + channel.channelContext + @"].
@@ -74,7 +85,6 @@ The output should be a simplified and formal version of the question and only us
 return using this format:
 |""(simplified formal question)""|""(list of best answers rewritten in proper english separated by comma)"",|(category which this QnA fits, from the list)""" + output_tag +
 "\n important, don't forget "+output_tag+". only useful answers to the thread should be returned, return as less replies as possible, if you find nothing of importance to help other people just return " + output_tag + ".\n\n";
-
 
             //Todo: use the channel context and name to generate promp (if gpt4)
 
@@ -118,7 +128,7 @@ return using this format:
             }
 
 
-            return Enumerable.Range(0, answers.Count).Select(index => new ConversationSummary
+            return this.Ok(Enumerable.Range(0, answers.Count).Select(index => new ConversationSummary
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 Question = answers[index].wikiQuestion,
@@ -127,7 +137,7 @@ return using this format:
                 Summary = String.Join("\n", answers[index].wikiAnswers),
                 Category = answers[index].wikiCategory
             })
-            .ToArray();
+            .ToArray());
         }
 
         /*

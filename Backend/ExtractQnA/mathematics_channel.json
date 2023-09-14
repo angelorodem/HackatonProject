@@ -1,0 +1,25 @@
+{
+
+   "channelName": "Mathematics SE",
+   "channelContext": "This channel is used for mathematics questions from https://math.stackexchange.com/",
+   "channelWikiTopics": ["General", "Real-Analysis", "Calculus", "Linear Algebra", "Integration"],
+   "channelThreads": [
+        {
+            "threadMessage":"For example, can I write \"10,\" if I want to write the number 10 with two significant figures. I know it can be done in some countries using a decimal point, but where I'm from, the decimal comma is used instead of the decimal point.",
+            "threadReplies": [
+                "As long as you clearly explain what your notations mean , you can use them. Whether this a standard way is another story. That must be answered by someone else.",
+                "These ambiguities can also be resolved using scientific notation; the number 10 to one significant figure (s.f.) is 1×101 , to 2 s.f. it's 1.0×101, and so forth."
+            ]
+        },
+        {
+            "threadMessage":"Let the set of three points be M= (a,b,c)             Form a neighbourhood Oa, Ob and Oc             around the points a, b, c. Say the neighbourhoods around a and b are open, but for c it is closed.            What are then the following neighbourhoods: {a,c} ? {a,b}? , {b,c} ? {a,b,c}? Open or closed? So my attempt is Oa=open,Oca=closed,Ob=open,Ocb=closed,Oc=closed,Occ=open. Then the equivalent neighbourhoods around {a,b} must be open, but what about the neighbourhoods around {a,c},{b,c},{a,b,c}? Can they be open and closed at the same time? Thanks",
+            "threadReplies": [
+                "What a preposterous behavior of some here who just gave thumb down without any explanation. Shame on you. You are lazy and contribute with nothing to this forum.",
+                "I don't understand the question. What do you mean by a=open? That is a completely nonsensical statement. Are you saying that the set {a} is open? If so, how do you know that? I am voting to close this question for lack of clarity and am also downvoting it for the same reason.",
+                "\"open\" and \"closed\" require a topology on a given set, in order to make sense.",
+                "If we were to interpret what you wrote (let it be open for a and b) to mean that you are using the topology τ where τ is the smallest topology containing {a} and {b} while not containing {c}, then we know from the definition of a topology that it contains unions of elements in it as well as the emptyset and universal set... i.e. that τ={∅,{a},{b},{a,b},M}... i.e. these are the open sets in our topology. Complements of these sets are called closed. I.e. {∅,{b,c},{a,c},{c},M} are closed.",
+                "So, it is wrong to call a open... it is {a} which is open. Do not confuse the object a with the object {a} as these are very different things. Yes, {a,b} is open, and yes {a,c} is closed and so on... Yes {a,b,c} is both open and closed simultaneously (as both ∅ and the parent set are always both open and closed in any topology). Yes there exist sets which are both open and closed, and yes there exist sets which are neither open nor closed in certain topologies. "
+            ]
+        }
+    ]
+}
