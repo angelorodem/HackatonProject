@@ -18,6 +18,9 @@ on:
   schedule:
     - cron: '34 23 * * 0'
 
+env:
+  WORKING_DIRECTORY: ./UX/wiki-ux
+
 jobs:
   eslint:
     name: Run eslint scanning
