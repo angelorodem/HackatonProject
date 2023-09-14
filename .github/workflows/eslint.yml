@@ -19,7 +19,7 @@ on:
     - cron: '34 23 * * 0'
 
 env:
-  WORKING_DIRECTORY: /home/runner/work/HackatonProject/HackatonProject/UX/wiki-ux
+  WORKING_DIRECTORY: /home/runner/work/HackatonProject/UX/wiki-ux
 
 jobs:
   eslint:
@@ -43,11 +43,11 @@ jobs:
           --config .eslintrc.js
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
-          --output-file /home/runner/work/HackatonProject/HackatonProject/UX/wiki-ux/eslint-results.sarif
+          --output-file /home/runner/work/HackatonProject/UX/wiki-ux/eslint-results.sarif
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: /home/runner/work/HackatonProject/HackatonProject/UX/wiki-ux/eslint-results.sarif
+          sarif_file: /home/runner/work/HackatonProject/UX/wiki-ux/eslint-results.sarif
           wait-for-processing: true
