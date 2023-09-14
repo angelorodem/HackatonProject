@@ -9,6 +9,9 @@ on:
   schedule:
   - cron: '28 12 * * *'
 
+env:
+  WORKING_DIRECTORY: ./UX/wiki-ux
+
 jobs:
   stale:
 
