@@ -35,35 +35,30 @@ export default function WikiComponent() {
     //         console.error("Error fetching data: ", error);
     //     }
     // }
-
-    const handleButtonClick = async (channelName) => {
-        setTitle(channelName);
-        // await fetchData(channelName);
-    }
-
     return (
         <div className="wiki-section">
             <div className="wiki-sidebar">
                 <h2>Channels</h2>
                 <ul>
                     <li>
-                        <a 
-                            href="/"
-                            onClick={() => handleButtonClick("DRI Channel")}
-                        >DRI Channel</a>
+                        <button
+
+                            onClick={() => setTitle("DRI Channel")}
+                        >DRI Channel</button>
                     </li>
                     <li>
-                        <a 
-                            href="/"
-                            onClick={() => handleButtonClick("Engineering Channel")}
-                        >Engineering Channel</a>
+                        <button 
+                            href = ""
+                            onClick={() => setTitle("Engineering Channel")}
+                         >Engineering Channel
+                        </button>
                     </li>
                 </ul>
             </div>
             <div className="wiki-main-content">
                 <h1>{title} Wiki</h1>
                 <div className="wiki-content">
-                    {QnAs && QnAs.length !== 0 && QnAs.map((QnA) => {
+                    {QnAs && QnAs.length !== 0 &&  QnAs.map&&  QnAs.map((QnA) => {
                         return (
                             <div key={QnA.conversationId} className="wiki-content-item">
                                 <h2 className="wiki-item-title">{QnA.question}</h2>
