@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using ExtractQnA.Clients;
+using System.Threading;
 
 namespace ExtractQnA.Controllers
 {
@@ -24,7 +25,7 @@ namespace ExtractQnA.Controllers
 
         private static HashSet<string> ValidChannels = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "dri_channel", "engineering_channel", "mathematics_channel"
+            "dri_channel", "engineering_channel", "mathematics_channel", "mathematics_channel_long", "engineering_channel_long"
         };
 
         private readonly ILogger<ConversationSummaryController> _logger;
@@ -32,6 +33,32 @@ namespace ExtractQnA.Controllers
         public ConversationSummaryController(ILogger<ConversationSummaryController> logger)
         {
             _logger = logger;
+        }
+
+        private async Task<string> FilterResults(List<string> resps, string message)
+        {
+            string gptContext =
+                @"You will help a customer find correct FAQ. you receive two FAQs below, respond which of the two best responds/fits to this user chat message: " + message +
+                @"|""(FAQ Question)""|""(list of best answers)"",|(FAQ Category)""" + "<<OUTPUT>>" + "\n" +
+                "respond {A} for first FAQ or {B} for second FAQ, if none of the FAQs fit the chat message, respond with {X}\n";
+
+            string prompt = gptContext + $"FAQ A: {resps[0]}\nFAQ B: {resps[1]} \nresponse: {{";
+
+            string output = (await getGptAnswerFor(prompt))[0];
+            char answer = output.ElementAt<char>(0);
+
+            if (answer == 'A')
+            {
+                return resps[0];
+            }
+            else if (answer == 'B')
+            {
+                return resps[1];
+            }
+            else
+            {
+                return String.Empty;
+            }   
         }
 
         [HttpGet(Name = "GetGPTSummary")]
@@ -44,48 +71,73 @@ namespace ExtractQnA.Controllers
             
             const string output_tag = "<<OUTPUT>>";
             const string input_tag = "<<INPUT>>";
-            Channel channel = Utils.Utils.ReadChannel($"{channelName}.json");
-            string gptContext = 
-@"You will receive a chat thread from a customer, you have to find if this conversation has any useful information that can be used or that is important to the customer employees, 
-The final goal is to build a question-and-answer wiki from this information so other people can refer to, the customer gave the following context to help you build the wiki: " + channel.channelContext + @"
-input format for wiki threads:
-{
-  ""threadMessage"": ""(main message)"",
-  ""threadReplies"": [""(list of replies)"",]
-}" + input_tag + @"
-The output should be a simplified and formal version of the question and only useful answers using proper english, you also need to categorize based on the available categories:
-["+String.Join(", ",channel.channelWikiTopics)+@"]
-use this format:
-{
-  ""wikiQuestion"":""(simplified formal question)"",
-  ""wikiAnswers"":[""(best answers in proper english)""],
-  ""wikiCategory"":""(category from the list)""
-}" + output_tag + "\n important, don't forget "+output_tag+" and only useful answers to the thread should be added, return as less replies as possible, if you find nothing of importance return just " + output_tag + ".\n\n";
 
+            Channel channel = Utils.Utils.ReadChannel($"{channelName}.json");
+            string gptContext =
+@"You will receive a chat thread, it contains a main message from the person who created the thread and replies to this thread, you have to find if this conversation has any useful information that can be used or that is important to other people, 
+The final goal is to find only useful information that can be used to build a question-and-answer wiki from this chat thread, to aid in interpreting the importance of messages, the customer gave the context for this chat thread: [" + channel.channelContext + @"].
+
+input format for chat threads:
+{""(main chat message)""}[""(list of replies)"",]" + input_tag + @"
+
+The output should be a simplified and formal version of the question and only useful answers that can help other people, people who will read this wiki might not know the context, so rewrite explaining well and use proper english, you also need to categorize the question and answers based on the available categories:
+[" + String.Join(", ",channel.channelWikiTopics)+@"]
+
+return using this format:
+|""(simplified formal question)""|""(list of best answers rewritten in proper english separated by comma)"",|(category which this QnA fits, from the list)""" + output_tag +
+"\n important, don't forget "+output_tag+". only useful answers to the thread should be returned, return as less replies as possible, if you find nothing of importance to help other people just return " + output_tag + ".\n\n";
 
             //Todo: use the channel context and name to generate promp (if gpt4)
 
-            List<string> prompts = new List<string>();
-
+            //Todo: exception handling for json parsing
+            List<WikiResponse> answers = new List<WikiResponse>();
+            List<(Task<List<string>>, string)> responses = new List<(Task<List<string>>, string)>(); // (response, threadMessage)
             foreach (var thread in channel.channelThreads)
+
             {
                 string threadReplies = "";
                 foreach (var reply in thread.threadReplies)
                 {
-                    threadReplies += "\""+reply+"\",\n";
+                    threadReplies += "\"" + reply + "\",\n";
                 }
-                threadReplies = threadReplies.Remove(threadReplies.Length - 2); // remove last comma
+                threadReplies = threadReplies.Remove(threadReplies.Length - 2); // remove last comma and newline
 
-                string prompt = gptContext + $"{{\n \"threadMessage\": \"{thread.threadMessage}\",\n \"threadReplies\": [{threadReplies}]\n}}" + input_tag;
-                prompts.Add(prompt);
+                string prompt = gptContext + $"{{\"{thread.threadMessage}\"}}[{threadReplies}]" + input_tag;
+
+                // non blocking request
+                responses.Add((getGptAnswerFor(prompt, 2), thread.threadMessage));                
             }
 
-            //Todo: exception handling for json parsing
-            List<WikiResponse> answers = new List<WikiResponse>();
-            foreach (var prompt in prompts)
+
+            List<Task<string>> filtering_results = new List<Task<string>>();
+            foreach (var response in responses)
             {
-                string resp = (await getGptAnswerFor(prompt)).Split(output_tag)[0].Trim();     
-                WikiResponse wikiResponse = JsonSerializer.Deserialize<WikiResponse>(resp);
+                // await in sequence (they will finish almost in same time)
+                List<string> gptresponses = (await response.Item1).Select(x => x.Split(output_tag)[0].Trim()).ToList();
+                filtering_results.Add(FilterResults(gptresponses, response.Item2));                
+            } 
+            
+            foreach (var result in filtering_results)
+            {
+                // await in sequence (they will finish almost in same time)
+                string best = await result;
+
+                if (best == String.Empty) { continue; }
+
+                List<string> strings = best.Split("|").ToList();
+
+                strings.RemoveAll(x => x == "");
+
+                WikiResponse wikiResponse = new WikiResponse();
+
+                wikiResponse.wikiQuestion = strings[0].Trim().Replace("\"", String.Empty);
+
+                List<string> answersList = strings[1].Trim().Replace("\"", String.Empty).Split(",").ToList();
+                answersList.RemoveAll(x => x == "");
+
+                wikiResponse.wikiAnswers = answersList;
+                wikiResponse.wikiCategory = strings[2].Trim().Replace("\"", String.Empty);
+
                 answers.Add(wikiResponse);
             }
 
@@ -141,7 +193,7 @@ use this format:
         }
 
 
-        private async Task<string> getGptAnswerFor(string input_prompt)
+        private async Task<List<string>> getGptAnswerFor(string input_prompt, int results = 1)
         {
             string testKey = "";
             string url = "https://fcedgeopenai.openai.azure.com/openai/deployments/fcedgefhlrachak/completions?api-version=2022-12-01";
@@ -154,7 +206,8 @@ use this format:
                 {
                     prompt = input_prompt,
                     max_tokens = 500,
-                    temperature = 0.4
+                    temperature = 0.15,
+                    n = results,
                 }),
                 Encoding.UTF8,
                 "application/json");
@@ -175,7 +228,8 @@ use this format:
 
             GPTResponse gptresponse = JsonSerializer.Deserialize<GPTResponse>(answer);
 
-            return gptresponse.choices[0].text;
+            // return list of gptresponse.choices[x].text
+            return gptresponse.choices.Select(x => x.text).ToList();
         }
 
         [HttpPost]
@@ -183,7 +237,7 @@ use this format:
         public async Task<string> Post()
         {
             string testPrompt = "Question: how many states in U.S?";
-            return await getGptAnswerFor(testPrompt);
+            return (await getGptAnswerFor(testPrompt))[0];
         }
 
         [HttpPost]
