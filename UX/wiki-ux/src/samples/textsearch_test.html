@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <form>
+        <input type="text" id="searchText" />
+        <input type="button" value="Submit" onclick=displayResult() /> 
+    </form>
+    <table id="result">
+    </table>
+    <script>
+let testData = [
+    {
+      "date": "2023-09-14",
+      "question": "What is the reason for the increase in latency on Jun 12?",
+      "conversationId": 0,
+      "channelId": 0,
+      "summary": "The network team is looking into it.\nIt's ok every Jun 12 we migrate server and have spikes in latency.",
+      "category": "Mitigation"
+    },
+    {
+      "date": "2023-09-14",
+      "question": "Why there is an increase in latency when traffic is high?",
+      "conversationId": 0,
+      "channelId": 0,
+      "summary": "The back end is not able to handle the load. We are wo rking on it.",
+      "category": "Mitigation"
+    },
+    {
+      "date": "2023-09-15",
+      "question": "How can i know if my HDDs are getting full, we have increased latency?",
+      "conversationId": 1,
+      "channelId": 0,
+      "summary": "Birds eating hard drives is a way that we say that HDDs are getting full. not actual birds eating HDDs.",
+      "category": "General"
+    }
+  ];
+
+  function searchByQuestion(text) {
+    let result = testData.filter((data) => {
+      return data.question.toLowerCase().indexOf(text.toLowerCase()) !== -1;
+    });
+    return result;
+  }
+
+    function highlightText(text, searchText) {
+      let regex = new RegExp(searchText, 'gi');
+      return text.replace(regex, '<b>$&</b>');
+    }
+
+    function searchAndHighlight(searchText) {
+      let result = searchByQuestion(searchText);
+      result.forEach((data) => {
+        data.question = highlightText(data.question, searchText);
+      });
+      return result;
+    }
+
+    function displayResult() {
+      let searchText = document.getElementById('searchText').value;
+      console.log(searchText);
+      let result = searchAndHighlight(searchText);
+      let table = document.getElementById('result');
+      table.innerHTML = '';
+      result.forEach((data) => {
+        let row = table.insertRow();
+        let question = row.insertCell();
+        let summary = row.insertCell();
+        question.innerHTML = data.question;
+        summary.innerHTML = data.summary;
+      });
+    }
+    </script>
+</body>
+</html>
