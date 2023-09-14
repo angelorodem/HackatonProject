@@ -24,7 +24,7 @@ namespace ExtractQnA.Controllers
 
         private static HashSet<string> ValidChannels = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "dri_channel", "engineering_channel", "mathematics_channel"
+            "dri_channel", "engineering_channel", "mathematics_channel", "mathematics_channel_long", "engineering_channel_long"
         };
 
         private readonly ILogger<ConversationSummaryController> _logger;
