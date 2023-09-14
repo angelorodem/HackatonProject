@@ -2,7 +2,7 @@
 
    "channelName": "Engineering Channel",
    "channelContext": "This channel is used for engineering general questions",
-   "channelWikiTopics": ["General", "Mitigation", "Graph Analysis", "Communications"],
+   "channelWikiTopics": ["General", "Python", "Java", "Node.js", "Visual Studio", "Android"],
    "channelThreads": [
        {
         "threadMessage":"I use the Postman desktop app for web API testing. I have a lot of controllers and for each need a token. First I get Bearer token and then copy it to other requests. This token have limit time. Can I get token automatically and then automatically set it to all others requests?",
