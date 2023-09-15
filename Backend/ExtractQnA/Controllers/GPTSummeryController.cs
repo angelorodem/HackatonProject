@@ -100,6 +100,7 @@ return using this format:
                 {
                     threadReplies += "\"" + reply + "\",\n";
                 }
+
                 threadReplies = threadReplies.Remove(threadReplies.Length - 2); // remove last comma and newline
 
                 string prompt = gptContext + $"{{\"{thread.threadMessage}\"}}[{threadReplies}]" + input_tag;
