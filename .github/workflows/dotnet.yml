@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
 env:
-    WORKING_DIRECTORY: ./Backend/ExtractQnA/ExtractQnA.sln
+    WORKING_DIRECTORY: Backend/ExtractQnA/ExtractQnA.sln
 
 jobs:
   build:
