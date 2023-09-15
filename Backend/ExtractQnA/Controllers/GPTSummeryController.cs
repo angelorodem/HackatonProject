@@ -237,7 +237,7 @@ return using this format:
 
         private async Task<List<string>> getGptAnswerFor(string input_prompt, int results = 1)
         {
-            string testKey = "";
+            string testKey = ""; // replace this with api key
             string url = "https://fcedgeopenai.openai.azure.com/openai/deployments/fcedgefhlrachak/completions?api-version=2022-12-01";
 
             
