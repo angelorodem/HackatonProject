@@ -32,7 +32,7 @@ namespace ExtractQnA
 
             app.UseRouting();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors("*");
 
             app.UseEndpoints(endpoints =>
             {

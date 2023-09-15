@@ -1,0 +1,180 @@
+{
+  "values": [
+    {
+      "date": "2023-09-15",
+      "question": "How to get token automatically and then automatically set it to all others requests?",
+      "conversationId": 0,
+      "channelName": "engineering_channel",
+      "summary": "Write below code in tests tab in postman for your login request. Then edit your collection and set your env authToken inside.\n\nYou can save and re-use the token's using the Token Name from Postman. You can select it from the available token list. One of the many cases are. Request for a refresh token using the credentials. Use the refresh token to get an access token. Use the access token to authenticate the API. The step 1 sometimes requires us to login to an interface of the API provider and get an authentication code to our callback url. Some API provider's allow us to override this by providing the client_secret key and the client_id as an authorization header and the refresh token as the request parameters and by setting prompt as none. From the documentation. prompt (optional) none no UI will be shown during the request. If this is not possible (e.g. because the user has to sign in or consent) an error is returned. ttps://identityserver.github.io/Documentation/docsv2/endpoints/authorization.html All you need to know about the identity servers are here.  https://identityserver.github.io/Documentation",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-16",
+      "question": "How to access command line arguments in Node.js?",
+      "conversationId": 1,
+      "channelName": "engineering_channel",
+      "summary": "It's probably a good idea to manage your configuration in a centralized manner using something like nconf github.com/flatiron/nconf It helps you work with configuration files\n environment variables\n command-line arguments\n\nAnd here's configvention\n my own\n minimal\n readonly interface for nconf",
+      "category": "Node.js"
+    },
+    {
+      "date": "2023-09-17",
+      "question": "Which HTTP method should be used to create a resource?",
+      "conversationId": 2,
+      "channelName": "engineering_channel",
+      "summary": "POST and PUT should be supported",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-18",
+      "question": "How do I connect to a MySQL database using a python program?",
+      "conversationId": 3,
+      "channelName": "engineering_channel",
+      "summary": "Setting You must install a MySQL driver before doing anything. Unlike PHP\n Only the SQLite driver is installed by default with Python. The most used package to do so is MySQLdb but it's hard to install it using easy_install. Please note MySQLdb only supports Python 2. Usage After installing\n Reboot. This is not mandatory\n But it will prevent me from answering 3 or 4 other questions in this post if something goes wrong. So please reboot. Of course\n there are thousand of possibilities and options; this is a very basic example. You will have to look at the documentation. A good starting point. 3 - More advanced usage Once you know how it works\n You may want to use an ORM to avoid writing SQL manually and manipulate your tables as they were Python objects. The most famous ORM in the Python community is SQLAlchemy.              I strongly advise you to use it: your life is going to be much easier. I recently discovered another jewel in the Python world: peewee. It's a very lite ORM\n really easy and fast to setup then use. It makes my day for small projects or stand alone apps\n Where using big tools like SQLAlchemy or Django is overkill",
+      "category": "Python"
+    },
+    {
+      "date": "2023-09-19",
+      "question": "What is a fast and simple way to validate HTML from Java?",
+      "conversationId": 4,
+      "channelName": "engineering_channel",
+      "summary": "If you want to verify certain tags follow certain specifications\n there seems to be no end of Java based HTML parsers: Open Source HTML Parsers in Java In other words\n you could parse you HTML\n and then inspect the resulting document for the tags you were looking for and determine if they meet the specifications you require. If they don't you could then just throw an error. I don't think you'll find a HTML analysis tool which was written with exactly your requirements in mind\n mostly because those requirements haven't been voiced and are probably a bit nebulous. If the parser doesn't do what you want out of the box\n at least this list is open source\n so you can hack the parser as long as you publish your changes.\n\nCheck JTidy (http://jtidy.sourceforge.net/) and VietSpider HTMLParser ( http://sourceforge.net/projects/binhgiang/ ) both are Java HTML parser and some syntax checking capabilities. Some eclipse based HTML editor plugin use JTidy (or port of Tidy) for syntax checking. Or as David Said\n submit the page to w3c.org",
+      "category": "Java"
+    },
+    {
+      "date": "2023-09-20",
+      "question": "How to hide the virtual keyboard when touching outside the keyboard?",
+      "conversationId": 5,
+      "channelName": "engineering_channel",
+      "summary": "What if you have only one EditText and several buttons\n like check boxes and radios? The only place you need the keyboard is in the single EditText. How do you register to know that something else was chosen/clicked in order to hide the keyboard? ",
+      "category": "Android"
+    },
+    {
+      "date": "2023-09-21",
+      "question": "How to automatically set a bearer token for your Postman requests?",
+      "conversationId": 6,
+      "channelName": "engineering_channel",
+      "summary": "You can save and re-use the token's using the Token Name from Postman. You can select it from the available token list. One of the many cases are. Request for a refresh token using the credentials. Use the refresh token to get an access token Use the access token to authenticate the API.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-22",
+      "question": "Is there a way to check if a type is convertible to another type without actually performing the conversion?",
+      "conversationId": 7,
+      "channelName": "engineering_channel",
+      "summary": "Maybe checking list-initialization would be sufficient. It already prevents narrowing conversions. I do not know of any trait that checks for it\n though. It should be easy to write that yourself.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-23",
+      "question": "How to change version number in xCode?",
+      "conversationId": 8,
+      "channelName": "engineering_channel",
+      "summary": "Check under Build Settings -> Versioning -> Marketing Version. Also known as the short version.                HTH",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-24",
+      "question": "how to solve this problem please",
+      "conversationId": 9,
+      "channelName": "engineering_channel",
+      "summary": "As the message says\n the version number needs to be higher. 2.0.1 would be acceptable as would 2.1. 2.0.0 is the same as 2.0",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-25",
+      "question": "How to change Ant Design component styles?",
+      "conversationId": 10,
+      "channelName": "engineering_channel",
+      "summary": "You can change component styles in many different ways:  You can change token config:",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-26",
+      "question": "What is the difference between Abstract class and Interface in C++, Explain both with Examples. I wants to know the difference between them, their importance and uses in C++, Explain in detail with examples. Also how it is used in java",
+      "conversationId": 11,
+      "channelName": "engineering_channel",
+      "summary": "Officially interfaces don't exist in C++. You have abstract baseclasses\n classes with virtual methods. The closest thing to an interface is an abstract base class with only pure virtual functions (an in practice I do call those interfaces).",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-27",
+      "question": "How to display iframe in webview?",
+      "conversationId": 12,
+      "channelName": "engineering_channel",
+      "summary": "Increased resources required to enable hardware acceleration\n so try adding it to activity label or application label in manifest.",
+      "category": "Android"
+    },
+    {
+      "date": "2023-09-28",
+      "question": "What is the difference between class-based and prototype-based languages?",
+      "conversationId": 13,
+      "channelName": "engineering_channel",
+      "summary": "JavaScript is a prototype-based language\n not a class-based language. This means that JavaScript uses prototypal inheritance instead of classical inheritance. In JavaScript\n a prototype is an object that contains properties and methods that are shared by all instances of a particular reference type. The prototype is the mechanism by which JavaScript objects inherit features from one another. In JavaScript\n every object has a prototype. The prototype is also an object. All JavaScript objects inherit their properties and methods from their prototype. Objects created using an object literal\n or with new Object()\n inherit from a prototype called Object.prototype. Objects created with new Date() inherit the Date.prototype. The Object.prototype is on the top of the prototype chain. Date.prototype inherits from Object.prototype. You can use hasOwnProperty() method to check whether a property is defined on an object instance or was inherited from the prototype chain.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-29",
+      "question": "What is the best way to iterate over a dictionary in C#?",
+      "conversationId": 14,
+      "channelName": "engineering_channel",
+      "summary": "I think that you've shortened the question too much. Now (5th revision) it's almost a paraphrasing of the title\n without any additional context. I am voting to revert to the previous version.\n\nThe context is probably not needed for the question to function since What is the best way / standard questions are usually considered off-topic\n but I've reverted it.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-30",
+      "question": "Why my android emulators not start?",
+      "conversationId": 15,
+      "channelName": "engineering_channel",
+      "summary": "You should check update your IDE and reinstall emulators. Also if you dont have storage space. It throws same error.",
+      "category": "Android"
+    },
+    {
+      "date": "2023-10-01",
+      "question": "How to move files from media folder to separate folders based on models?",
+      "conversationId": 16,
+      "channelName": "engineering_channel",
+      "summary": "Instead of manually updating the locations\n I'd write a data migration to do it. The same migration could also move the physical files if you feel like it. \n\nAKX could you please give some example of a migration how I could do this if I want to move all files in given model from media to media/modelname folder?\n\n(1) Make a dict of source -> dest paths: ps = {f.name: fmodel/{f.name} for f in MyModel.objects.values_list(file\n flat=True} (2) Loop over the dict\n call os.rename() (assuming you're using filesystem storage) (3) Update the model values (untested\n but should work): MyModel.objects.update(file=model/ + F(file)).",
+      "category": "Python"
+    },
+    {
+      "date": "2023-10-02",
+      "question": "How to highlight all compatible links in a Sankey diagram ?",
+      "conversationId": 17,
+      "channelName": "engineering_channel",
+      "summary": "No-one ? Maybe another js library that could do that ?\n What is required is a new algorithm to select items that are to be highlighted on link hover.                To select all compatible targets and their targets\n ... and so on\n one may:              start the array itemsToHighlight with the item under the pointer\n and store in an array allTargetIds initially the target id of that item  for all links of the series add to the itemsToHighlight all those items whose source id is equal to one of the target ids in the allTargetIds array.                 repeat step 2. until there is no new item added to itemsToHighlight. Now\n if one also wants to also highlight compatible items to the left\n that is all possible sources and all their possible sources\n ... and so on\n the algorithm is the same\n but invert source and target positions.",
+      "category": "JavaScript"
+    },
+    {
+      "date": "2023-10-03",
+      "question": "How to setup servo browser on my local?",
+      "conversationId": 18,
+      "channelName": "engineering_channel",
+      "summary": "install Rust and Chocolatey\n then install Python\n CMake\n Git\n Ninja and the Visual Studio 2019 Build Tools via choco in an Administrator console.",
+      "category": "General"
+    },
+    {
+      "date": "2023-10-04",
+      "question": "How to resolve SSL certificate verification failure when using python to connect to Splunk?",
+      "conversationId": 19,
+      "channelName": "engineering_channel",
+      "summary": "Self-signed certificates or a certificate signed by an untrusted CA are both common reasons for verification failures\n but not the only reasons. Expired certificates or using an IP address in your application when the certificate does not contain a Subject Alternative Name (SAN) IP entry to secure traffic to the IP address are also common issues. One way to handle any failure is in the code using verify=False as in your example\n although this is not really recommended as you're essentially disabling certificate verification which can be risky from a security standpoint. This is not suggested in production environments. However\n it might be necessary in certain situations such as an expired certificate which you have no control over to replace it. If it's a self-signed certificate or untrusted CA another way to handle this may be importing the self-signed certificate or the untrusted CA into your trusted certificate store\n or Splunk's certificate store if it uses its own. Adding a certificate to your systems certificate store is different for each OS or even between distro's of Linux. You can use your browser to examine SSL certificate and see if you get the same verification failure or not. Otherwise this page\n from freecodecamp\n goes into some detail about using the openssl utility to examine certificates\n identify the signer (CA or self signed) or download the certificate so you could import it into a store. Separately this discussion at splunk.com has a very similar question and a solution that suggests using openssl_capath_env / SSL_CERT_DIR to resolve the verification failure when the certificate is not trusted.",
+      "category": "Python"
+    },
+    {
+      "date": "2023-10-05",
+      "question": "How to get memory limits in helm chart?",
+      "conversationId": 20,
+      "channelName": "engineering_channel",
+      "summary": "Helm doesn't have any built-in support for parsing Kubernetes resource units. You can look for a Mi string suffix\n but in the general case this is a tricky problem to solve in Helm. Can the program figure out its own memory limits\n maybe by looking at the Linux cgroups subsystem\n without an explicit environment-variable setting?\n So\n alternative is to use %cpu. i think\n that is easier than this? what do you say @DavidMaze",
+      "category": "Python"
+    },
+    {
+      "date": "2023-10-06",
+      "question": "How to debug html completion in vscode?",
+      "conversationId": 21,
+      "channelName": "engineering_channel",
+      "summary": "@rioV8 I see you removed the vscode-extensions tag\n but the way I interpret the description\n it should be added\n I actually want to develop. Correct me if I'm wrong. Use this tag for questions about the Visual Studio Code Extension API and extension development. Questions only about extension usage should use the [visual-studio-code] tag instead\n\nhere inside of the documentation they use <",
+      "category": "for html completion maybe there is a typo inside of the github instruction ,\ndid you actually type <d"
+    }
+  ]
+}

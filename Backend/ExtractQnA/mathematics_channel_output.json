@@ -1,0 +1,164 @@
+{
+  "values": [
+    {
+      "date": "2023-09-15",
+      "question": "Can I write 10, if I want to write the number 10 with two significant figures?",
+      "conversationId": 0,
+      "channelName": "mathematics_channel",
+      "summary": "As long as you clearly explain what your notations mean\n you can use them. Whether this a standard way is another story. That must be answered by someone else.\n\nThese ambiguities can also be resolved using scientific notation; the number 10 to one significant figure (s.f.) is 1×101\n to 2 s.f. it's 1.0×101\n and so forth.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-16",
+      "question": "What are the open and closed sets in the topology where the open sets are the sets containing a and b and the closed sets are the sets containing c?",
+      "conversationId": 1,
+      "channelName": "mathematics_channel",
+      "summary": "{a\nb} is open\n {a\nc} is closed\n {b\nc} is closed\n {a\nb\nc} is both open and closed",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-17",
+      "question": "What is the limit of f(x,y,z) as (x,y,z) approaches (1,2,0)?",
+      "conversationId": 2,
+      "channelName": "mathematics_channel",
+      "summary": "Use This guide https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference perhaps\n If you pretend to edit your posting\n by taking the edit link\n you will have access to the MathJax syntax used by Robert Z to present the math in your posting.",
+      "category": "Calculus"
+    },
+    {
+      "date": "2023-09-18",
+      "question": "Can an algorithm prove that it produced its own output?",
+      "conversationId": 3,
+      "channelName": "mathematics_channel",
+      "summary": "Just to clarify \n the observer knows the output and the (randomized) algorithm and shall conclude the input ? This won't usually work since most machines will produce identical outputs with many different inputs.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-19",
+      "question": "Define two events such that they exhibit conditional independence with B but not with B complement. Are there any examples of events A and B such that P(A∩B",
+      "conversationId": 4,
+      "channelName": "mathematics_channel",
+      "summary": "C)=P(A",
+      "category": "C)P(B"
+    },
+    {
+      "date": "2023-09-20",
+      "question": "shifted function and differential let f is q times continuously differentiable in [a, b] then( For positive integer n with a≤n≤b )f(n−1+x)is q times continuously differentiable in [0, 1].",
+      "conversationId": 5,
+      "channelName": "mathematics_channel",
+      "summary": "Welcome to Mathematics SE. Take a tour. You'll find that simple Here's the statement of my question\n solve it for me posts will be poorly received. What is better is for you to add context (with an edit): What you understand about the problem\n what you've tried so far\n etc.; something both to show you are part of the learning experience and to help us guide you to the appropriate help. You can consult this link for further guidance.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-21",
+      "question": "How can I generate a random prime of the form 2ab+1 for small b value without actually creating a list of such primes, and then choose from the list at random?",
+      "conversationId": 6,
+      "channelName": "mathematics_channel",
+      "summary": "Take a look at this Are there infinitely many primes of the form k⋅2n+1? https://math.stackexchange.com/questions/79419/are-there-infinitely-many-primes-of-the-form-k-cdot-2n-1\n There is nothing better than to create random candidates without a small factor until you have a prime.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-22",
+      "question": "Is there an easier way to prove the Fundamental Theorem of Algebra for polynomials with real coefficients?",
+      "conversationId": 7,
+      "channelName": "mathematics_channel",
+      "summary": "I can't imagine that it is possible to prove FTA with less machinery than this ime.usp.br/~oliveira/FTAAUTHOR.pdf Personally I don't think restriction to the real case is going to help.",
+      "category": "Calculus"
+    },
+    {
+      "date": "2023-09-23",
+      "question": "Is William only eats icecream when the sun is shining a biimplication?",
+      "conversationId": 8,
+      "channelName": "mathematics_channel",
+      "summary": "The mathematician RL Moore took the position that “only if” should mean “if and only if”. The idea is that “A only if B” is a stronger statement than “A if B”. Not only are we told that “A if B”\n but we are given a little extra information: “A only if B”. So if someone thinks your example is a biimplication\n they’re not crazy. However\n mathematicians have adopted the convention that “A only if B” means “A implies B”.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-24",
+      "question": "How do I know what assumptions I can make in a proof? I'm given this proof and am told to prove by deduction: (p∨(q∧r))→(((q∧r)→p)→p) I have the following rules that I can use: ∧ introductions and eliminations ∨ introductions ∨ eliminations (a case analysis where I prove each case)  → introductions Modus Ponens Modus Tollens My issue is that I do not know what I can assume as true/where to begin assuming which parts of the proof are true.  How do I know what assumptions I can make in a given proof? Is there a procedural way to determine what is safe to assume?",
+      "conversationId": 9,
+      "channelName": "mathematics_channel",
+      "summary": "Work backwards from the result you want. You want to prove something of the form A→B\n so your last step could be a → introduction. This means you'll have a sub-proof that assumes A and proves B.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-25",
+      "question": "Does a subobject classifier imply the existence of power objects?",
+      "conversationId": 10,
+      "channelName": "mathematics_channel",
+      "summary": "A simple counterexample is the category of countable sets. This has a subobject classifier (the usual 2-element set) but a countably infinite set does not have a power object since its power object would have to have uncountably many points (since it has uncountably many subobjects).",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-26",
+      "question": "What is the best book for counter examples of group theory, linear algebra?",
+      "conversationId": 11,
+      "channelName": "mathematics_channel",
+      "summary": "In Gelbaum B.R.\n Olmsted\n J.M.H.: Theorems and Counterexamples in Mathematics\n Springer (1990) the first chapter is about group theory and linear algebra.\n It does not cover linear algebra but\n for group theory\n the book Examples of Groups by Michael Weinstein is a gem. It's an older book\n but there appear to be used copies available online.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-27",
+      "question": "Has every infinite simple group a faithful irreducible representation?",
+      "conversationId": 12,
+      "channelName": "mathematics_channel",
+      "summary": "The statement is true for infinite groups with some exceptions if you allow infinite-dimensional representations Unless G is a p-group\n where p is the characteristic of k\n the group ring k[G] is not local\n so there exist at least two isomorphism classes of simple modules\n in particular\n there is an irreducible representation where G acts nontrivially. Such a representation is faithful\n because G is simple and so any nontrivial homomorphism from G is injective. Conversely\n if G is p -group (such as a Tarski monster)\n where p is the characteristic of k\n then k[G] is local and hence there is only one irreducible representation\n the trivial one\n which is not faithful.",
+      "category": "Linear Algebra"
+    },
+    {
+      "date": "2023-09-28",
+      "question": "What is the simplest example of a continuous function that has no absolute maximum or minimum?",
+      "conversationId": 13,
+      "channelName": "mathematics_channel",
+      "summary": "The function $f(x) = x$ on the interval $[0\n1]$ has no absolute maximum or minimum. It is continuous\n and it is very simple.",
+      "category": "Calculus"
+    },
+    {
+      "date": "2023-09-29",
+      "question": "What is the vector space of functions on an empty domain?",
+      "conversationId": 14,
+      "channelName": "mathematics_channel",
+      "summary": "It is a vector space (a zero dimensional/trivial vector space). There are some people who don't like functions with empty domains (they introduce a few issues; e.g.\n it is not true that a function is injective if and only if it has a left inverse if you allow functions with empty domain). Or who find them somewhat confusing. So they don't want to deal with them. I suspect that is what is at issue here. The author does not want to consider functions with empty domain\n so they exclude S=∅. The wording of the example does not categorically state that you will not get a vector space when S is empty: it just does not treat that case and is silent about it.",
+      "category": "General"
+    },
+    {
+      "date": "2023-09-30",
+      "question": "What are the classic or great books for Algebra, Geometry, and Trigonometry that are similar to what Spivak, Courant, and Apostol are for Calculus?",
+      "conversationId": 15,
+      "channelName": "mathematics_channel",
+      "summary": "For geometry\n Introduction to Geometry by Coxeter fits the bill\n I think.\n What do you mean by elementary algebra? Do you mean solving for X in equations like 2X+5=9? Do you mean introductory linear algebra textbooks?\n The former. By elementary algebra I mean what would be taught in high school algebra or college algebra\n but not watered down. Things like polynomials\n intermediate value theorem\n inequalities\n absolute value\n cramers rules\n matrix algebra\n division algorithm\n etc with lots of their properties and problems that aren't completely trivial. Maybe similar to the algebra in the math olympiad. Not linear algebra though.\n Gelfand's books\n Look at these algebra books https://www.nctm.org/classroomresources/?messageID=6887855 and these trig books https://math.stackexchange.com/questions/838514/good-book-on-advanced-trigand these geometry books https://math.stackexchange.com/questions/1402566/high-school-geometry-text\n I think what you mean is algebra\n trig\n and geometry books with rigor as the calc text you mentioned. I know some\n for algebra and trig I recommend Modern Algebra and Trigonometry by Vance. This book provides the elementary concepts of algebra and trig but with rigor and full proofs on all the theorems. He even added concepts from abstract algebra and analysis such as field\n order\n completness. The problem is hard. You are asked to prove a lot of things and don’t worry\n he explain the necessary methods of proof. He even introduced limits.                For geometry\n it is Geometry by Moise and Downs. It is a good book with proofs that includes analytic geometry. Nothing much to say because geometry isn’t my priority.",
+      "category": "General"
+    },
+    {
+      "date": "2023-10-01",
+      "question": "What is the spatial regularity of the heat kernel on Lipschitz and polygon domain?",
+      "conversationId": 16,
+      "channelName": "mathematics_channel",
+      "summary": "You can definitely find some papers on coefficients of the trace of the heat kernel in this setting (e.g. https://arxiv.org/abs/0901.0019)\n but this might not be what you want. Otherwise\n I am not sure if there is a computation of the heat kernel performed in such generality\n but I recall hearing that polygons fit within the framework of stratified spaces of depth 2\n so they might be studied using an iterated version of edge calculus\n a generalisation of b-calculus that follows the same philosophy\n fitting into Melrose's (and others) program of Lie algebroids and groupoids. This framework provides a road map with which to compute a heat kernel\n but it could be that this specific case has some particularities that make it more difficult.",
+      "category": "Calculus"
+    },
+    {
+      "date": "2023-10-02",
+      "question": "Number of triangles a point lies in on a plane. On a plane, there are 2n+1 points where no three points are co-linear. Show that for any point P which is one of the points, the number of triangles the interior of which P lies in is always even.",
+      "conversationId": 17,
+      "channelName": "mathematics_channel",
+      "summary": "is P one of the 2n+1 points?\n Are we assuming no three points are collinear?\n I have edited the question to make it clear. Thanks for pointing them out!\n There's a similar rule if the total number of points is even rather than odd. If you determine that\n you can proceed by induction.",
+      "category": "Calculus"
+    },
+    {
+      "date": "2023-10-03",
+      "question": "How to calculate the area of a triangle without using cross product?",
+      "conversationId": 18,
+      "channelName": "mathematics_channel",
+      "summary": "See Heron's Formula https://en.wikipedia.org/wiki/Heron%27s_formula\nCayley-Menger determinant https://en.wikipedia.org/wiki/Cayley%E2%80%93Menger_determinant",
+      "category": "Calculus"
+    },
+    {
+      "date": "2023-10-04",
+      "question": "Does a line exist that passes through the origin and does not intersect any of the circles (excepting the one at the origin)?",
+      "conversationId": 19,
+      "channelName": "mathematics_channel",
+      "summary": "If the line's gradient m is rational\n say pq\n it passes through the gridpoint (q\np). If not\n we can approximate m arbitrarily well with rationals (eg just take more digits of its decimal expansion)\n so no such r exists.",
+      "category": "Calculus"
+    }
+  ]
+}
