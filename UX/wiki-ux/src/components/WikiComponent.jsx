@@ -1,40 +1,104 @@
 import React, { useState, useEffect } from 'react';
 
-import WikiSidebarComponent from './WikiSidebarComponent'
+ 
 
 export default function WikiComponent() {
+
     const [QnAs, setQnAs] = useState([]);
+    const [channelName, setChannelName] = useState("dri_channel");
+    const [title, setTitle] = useState("DRI Channel");
+
+ 
 
     useEffect(() => {
-        fetch('https://extractqnaapi2.azure-api.net/ConversationSummary',{
-                method: 'GET',
-                accept: 'text/plain'
-            }).then((response) => response.json())
+
+        fetch(`https://localhost:7035/ConversationSummary/GetTeamsChannelSummary?channelName=all`, {
+
+            method: 'GET',
+
+            accept: 'text/plain'
+
+        }).then((response) => response.json())
+
             .then((data) => {
+
                 console.log("data is " + JSON.stringify(data));
+
                 setQnAs(data);
+
             })
+
             .catch((err) => {
+
                 console.log("Failed with error" + err);
+
             });
-    }, []);
+
+    }, [channelName]);
+
+   
 
     return (
+
         <div className="wiki-section">
-            <WikiSidebarComponent />
-            <div className="wiki-main-content">
-                <h1>Channel Wiki</h1>
-                <div className="wiki-content">
-                   {QnAs.map((QnA) => {
-                    return (
-                        <div className="wiki-content-item" key={QnA.conversationId}>
-                            <h2 className="wiki-item-title">{QnA.question}</h2>
-                            <p className="post-body">{QnA.summary}</p>
-                        </div>
-                    );
-                  })}
-               </div>
+
+            <div className="wiki-sidebar">
+
+                <h2>Channels</h2>
+
+                <ul>
+
+                    <li>
+
+                        <button
+                            onClick={() => {setTitle("DRI Channel"); setChannelName("dri_channel")}}
+                        >DRI Channel</button>
+
+                    </li>
+
+                    <li>
+
+                        <button
+                            onClick={() => {setTitle("Engineering Channel"); setChannelName("engineering_channel")}}
+
+                         >Engineering Channel
+
+                        </button>
+
+                    </li>
+
+                </ul>
+
             </div>
+
+            <div className="wiki-main-content">
+
+                <h1>{title} Wiki</h1>
+
+                <div className="wiki-content">
+
+                    {QnAs && QnAs.length !== 0 &&  QnAs.map&&  QnAs.map((QnA) => {
+
+                        return (
+
+                            <div key={QnA.conversationId} className="wiki-content-item">
+
+                                <h2 className="wiki-item-title">{QnA.question}</h2>
+
+                                <p className="post-body">{QnA.summary}</p>
+
+                            </div>
+
+                        );
+
+                    })}
+
+                </div>
+
+            </div>
+
         </div>
+
     )
+
 }
