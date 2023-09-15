@@ -50,7 +50,7 @@ export default function WikiComponent() {
                     <li>
 
                         <button
-                            onClick={() => {setTitle("DRI Channel Wiki"); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "dri_channel"))}}
+                            onClick={() => {setTitle("DRI Channel Wiki"); setSearchText([]); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "dri_channel"))}}
                         >DRI Channel</button>
 
                     </li>
@@ -58,7 +58,7 @@ export default function WikiComponent() {
                     <li>
 
                         <button
-                            onClick={() => {setTitle("Engineering Channel Wiki"); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "engineering_channel"))}}
+                            onClick={() => {setTitle("Engineering Channel Wiki"); setSearchText([]); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "engineering_channel"))}}
 
                          >Engineering Channel
 
@@ -69,7 +69,7 @@ export default function WikiComponent() {
                     <li>
 
                         <button
-                          onClick={() => {setTitle("Mathmetics Channel Wiki"); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "mathematics_channel"))}}
+                          onClick={() => {setTitle("Mathmetics Channel Wiki"); setSearchText([]); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "mathematics_channel"))}}
                          >Mathemetics  Channel
                         </button>
                     </li>
