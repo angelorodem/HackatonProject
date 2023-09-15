@@ -34,4 +34,4 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
