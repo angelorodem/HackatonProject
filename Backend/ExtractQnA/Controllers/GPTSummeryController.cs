@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using ExtractQnA.Clients;
 using System.Threading;
+using System.IO;
 
 namespace ExtractQnA.Controllers
 {
@@ -25,7 +26,12 @@ namespace ExtractQnA.Controllers
 
         private static HashSet<string> ValidChannels = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "dri_channel", "engineering_channel", "mathematics_channel", "mathematics_channel_long", "engineering_channel_long"
+            "dri_channel", "engineering_channel", "mathematics_channel", "mathematics_channel_long", "engineering_channel_long", "datascience_channel"
+        };
+
+        private static HashSet<string> ValidChannelsAfterPersisting = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "dri_channel", "engineering_channel", "mathematics_channel", "all"
         };
 
         private readonly ILogger<ConversationSummaryController> _logger;
@@ -59,6 +65,42 @@ namespace ExtractQnA.Controllers
             {
                 return String.Empty;
             }   
+        }
+
+        [Route("GetTeamsChannelSummary")]
+        [HttpGet]
+        public async Task<IActionResult> GetTeamsChannelSummary([FromQuery(Name = "channelName")] string channelName = "dri_channel")
+        {
+            List<ConversationSummary> returnVal = new List<ConversationSummary>();
+            if (!ValidChannelsAfterPersisting.Contains(channelName))
+            {
+                return this.BadRequest();
+            }
+
+            List<string> channels = new List<string>();
+            if (channelName.Equals("all", StringComparison.OrdinalIgnoreCase))
+            {
+                channels = ValidChannelsAfterPersisting.ToList();
+                channels.Remove("all");
+            }
+            else
+            {
+                channels.Add(channelName);
+            }
+
+            foreach (string eachChannelName in channels)
+            {
+                using (FileStream stream = System.IO.File.OpenRead($"{eachChannelName}_output.json"))
+                {
+                    ChannelQnA channelOutput = JsonSerializer.Deserialize<ChannelQnA>(stream);
+                    if (channelOutput != null)
+                    {
+                        returnVal.AddRange(channelOutput.Values);
+                    }
+                }
+            }
+
+            return this.Ok(returnVal);
         }
 
         [HttpGet(Name = "GetGPTSummary")]
