@@ -86,7 +86,7 @@ return using this format:
                 answersList.RemoveAll(x => x == "");
 
                 wikiResponse.wikiAnswers = answersList;
-                wikiResponse.wikiCategory = strings.Count >= 2 ? strings[2].Trim().Replace("\"", String.Empty) : String.Empty;
+                wikiResponse.wikiCategory = strings.Count > 2 ? strings[2].Trim().Replace("\"", String.Empty) : String.Empty;
 
                 answers.Add(wikiResponse);
             }
