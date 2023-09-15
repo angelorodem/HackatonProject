@@ -75,18 +75,20 @@ export default function WikiComponent() {
                     </li>
                     <li>
                             <input type="text" id="searchText" />
-                            <input type="button" value="Search Wiki" onClick = {() => { let searchText = document.getElementById('searchText').value; setQnAs([]); setSearchText(allQnAs.filter((qna) => qna?.question?.indexOf(searchText) > -1))}}/>
+                            <input type="button" value="Search Wiki" onClick = {() => { let searchText = document.getElementById('searchText').value; console.log("SearchText" + searchText);setQnAs([]); setSearchText(allQnAs.filter((qna) => qna?.question?.indexOf(searchText) > -1))}}/>
                     </li>
                 </ul>
 
             </div>
 
             <div className="wiki-main-content" id = "WikiResults">
-                  <h1> {title} </h1>
                 <div className="wiki-content">
 
-                      {QnAs && QnAs.length !== 0 &&  QnAs.map &&  QnAs.map((QnA) => {
+                   {QnAs && QnAs.length !== 0 && 
+                      <h1> {title} </h1>
+                   }
 
+                      {QnAs && QnAs.length !== 0 &&  QnAs.map &&  QnAs.map((QnA) => {
                         return (
                             <div key={QnA.conversationId} className="wiki-content-item">
                                 <h2 className="wiki-item-title">{QnA.question}</h2>
@@ -98,8 +100,10 @@ export default function WikiComponent() {
                 </div>
 
                 <div className="search-wiki-content">
-                   <h1> Search Results </h1>
-                    {searchText && searchText.length !== 0 &&  searchText.map&&  searchText.map((QnA) => {
+                    {searchText && searchText.length !== 0 && 
+                        <h1> Search Results </h1>
+                    }
+                    {searchText && searchText.length !== 0 &&  searchText?.map &&  searchText?.map((QnA) => {
 
                         return (
 
