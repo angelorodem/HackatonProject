@@ -5,14 +5,13 @@ import React, { useState, useEffect } from 'react';
 export default function WikiComponent() {
 
     const [QnAs, setQnAs] = useState([]);
-    const [channelName, setChannelName] = useState("dri_channel");
+    const [searchText, setSearchText] = useState([]);
+    const [allQnAs, setAllQnAs] = useState([]);
     const [title, setTitle] = useState("DRI Channel");
-
- 
 
     useEffect(() => {
 
-        fetch(`https://localhost:7035/ConversationSummary/GetTeamsChannelSummary?channelName=all`, {
+        fetch(`https://localhost:64445/ConversationSummary/GetTeamsChannelSummary?channelName=all`, {
 
             method: 'GET',
 
@@ -24,7 +23,7 @@ export default function WikiComponent() {
 
                 console.log("data is " + JSON.stringify(data));
 
-                setQnAs(data);
+                setAllQnAs(data);
 
             })
 
@@ -34,7 +33,7 @@ export default function WikiComponent() {
 
             });
 
-    }, [channelName]);
+    }, []);
 
    
 
@@ -51,7 +50,7 @@ export default function WikiComponent() {
                     <li>
 
                         <button
-                            onClick={() => {setTitle("DRI Channel"); setChannelName("dri_channel")}}
+                            onClick={() => {setTitle("DRI Channel Wiki"); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "dri_channel"))}}
                         >DRI Channel</button>
 
                     </li>
@@ -59,7 +58,7 @@ export default function WikiComponent() {
                     <li>
 
                         <button
-                            onClick={() => {setTitle("Engineering Channel"); setChannelName("engineering_channel")}}
+                            onClick={() => {setTitle("Engineering Channel Wiki"); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "engineering_channel"))}}
 
                          >Engineering Channel
 
@@ -67,17 +66,40 @@ export default function WikiComponent() {
 
                     </li>
 
+                    <li>
+
+                        <button
+                          onClick={() => {setTitle("Mathmetics Channel Wiki"); setQnAs(allQnAs?.filter((qna) => qna?.channelName === "mathematics_channel"))}}
+                         >Mathemetics  Channel
+                        </button>
+                    </li>
+                    <li>
+                            <input type="text" id="searchText" />
+                            <input type="button" value="Search Wiki" onClick = {() => { let searchText = document.getElementById('searchText').value; setQnAs([]); setSearchText(allQnAs.filter((qna) => qna?.question?.indexOf(searchText) > -1))}}/>
+                    </li>
                 </ul>
 
             </div>
 
-            <div className="wiki-main-content">
-
-                <h1>{title} Wiki</h1>
-
+            <div className="wiki-main-content" id = "WikiResults">
+                  <h1> {title} </h1>
                 <div className="wiki-content">
 
-                    {QnAs && QnAs.length !== 0 &&  QnAs.map&&  QnAs.map((QnA) => {
+                      {QnAs && QnAs.length !== 0 &&  QnAs.map &&  QnAs.map((QnA) => {
+
+                        return (
+                            <div key={QnA.conversationId} className="wiki-content-item">
+                                <h2 className="wiki-item-title">{QnA.question}</h2>
+                                <p className="post-body">{QnA.summary}</p>
+                           </div>
+                        );
+
+                      })}
+                </div>
+
+                <div className="search-wiki-content">
+                   <h1> Search Results </h1>
+                    {searchText && searchText.length !== 0 &&  searchText.map&&  searchText.map((QnA) => {
 
                         return (
 
@@ -92,13 +114,10 @@ export default function WikiComponent() {
                         );
 
                     })}
-
                 </div>
 
             </div>
 
         </div>
-
     )
-
 }
