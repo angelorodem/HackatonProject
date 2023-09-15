@@ -19,7 +19,7 @@ namespace ExtractQnA.Clients
         }
 
         private async Task ProcessChannel(Channel channel) {
-            List<WikiResponse> answers = await this.openAIClient.GetWikiResponses(channel);
+            List<WikiResponse> answers = await OpenAIClient.GetWikiResponses(channel);
 
             // save response to file
             string filePath = channel.channelName + "_content.json";

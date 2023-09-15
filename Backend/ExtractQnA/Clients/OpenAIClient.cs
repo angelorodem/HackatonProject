@@ -21,7 +21,7 @@ namespace ExtractQnA.Clients
             return response;
         }
 
-        public async Task<List<WikiResponse>> GetWikiResponses(Channel channel) {
+        public static async Task<List<WikiResponse>> GetWikiResponses(Channel channel) {
             const string output_tag = "<<OUTPUT>>";
             const string input_tag = "<<INPUT>>";
             string gptContext = @"You will receive a chat thread, it contains a main message from the person who created the thread and replies to this thread, you have to find if this conversation has any useful information that can be used or that is important to other people, 
@@ -94,7 +94,7 @@ return using this format:
             return answers;
         }
 
-        private async Task<string> FilterResults(List<string> resps, string message)
+        private static async Task<string> FilterResults(List<string> resps, string message)
         {
             string gptContext =
                 @"You will help a customer find correct FAQ. you receive two FAQs below, respond which of the two best responds/fits to this user chat message: " + message +
@@ -120,7 +120,7 @@ return using this format:
             }
         }
 
-        public async Task<List<string>> GetGptAnswerFor(string input_prompt, int results = 1)
+        public static async Task<List<string>> GetGptAnswerFor(string input_prompt, int results = 1)
         {
             string testKey = "";
             string url = "https://fcedgeopenai.openai.azure.com/openai/deployments/fcedgefhlrachak/completions?api-version=2022-12-01";
